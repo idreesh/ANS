@@ -1,3 +1,18 @@
+
+Installation : - 
+----------------
+ You need to setup your enviroment to start with the project :-
+ 
+ 1. Install Apache Axis 2. 
+ 2. You need to have eclispe Java EE development 
+ 3. ANT to build ANS project and compilation.
+ 
+ 
+ 
+
+ Airport Notification Service (Web Service)
+ ------------------------------------------
+ 
 1) step1.run.RestClient
  - run RestClient to test the external service
  -see the response XML doc.
