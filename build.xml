@@ -1,0 +1,136 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project name="WS_AirPortStatus" basedir="." default="generate.wsdl">
+
+	<property name="myName" value="AirPortStatusService" />
+
+	<import file="${basedir}/common-build.xml"/>
+
+	<property environment="env"/>
+	<property name="axis2.home" value="C:\axis2" />
+
+	<property name="dest.dir" value="build" />
+
+	<property name="dest.dir.classes" value="${dest.dir}/classes" />
+
+	<property name="repository.path" value="${axis2.home}/repository/servicejars" />
+
+	<path id="build.class.path">
+		<fileset dir="${axis2.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="build/classes" />
+		<pathelement path="gen-stubs" />
+	</path>
+
+	
+	<target name="clean">
+		<delete dir="${dest.dir}" />
+		<delete dir="gen-stubs"/>
+		<delete dir="gen-wsdl"/>
+		<delete dir="resources"/>
+	</target>
+
+	<target name="prepare">
+
+		<mkdir dir="${dest.dir}" />
+
+		<mkdir dir="${dest.dir.classes}" />
+
+	</target>
+				
+	<target name="compile" depends="prepare">
+
+		<javac srcdir="src" destdir="${dest.dir.classes}" excludes="Client/*.java">
+			<classpath refid="build.class.path" />
+		</javac>
+
+	</target>
+
+	<target name="generate.wsdl" depends="compile">
+		<mkdir dir="gen-wsdl" />
+		<exec executable="${wsgen_tool}">
+			<arg value="-verbose"/>
+			<arg value="-classpath"/>
+			<arg value="${dest.dir.classes}"/>
+			<arg value="-wsdl"/>
+			<arg value="-d"/>
+			<arg value="gen-wsdl"/>
+			<arg value="-r"/>
+			<arg value="gen-wsdl"/>
+			<arg value="-keep"/>
+			<arg value="jaxws.project.airportService.AirPortSerImpl" />
+		</exec>
+		<replace file="gen-wsdl/AirPortSerImplService.wsdl" 
+						token="REPLACE_WITH_ACTUAL_URL" 
+						value="http://localhost:8080/axis2/services/AirPortSerImplService"/>
+
+		<copy todir="${basedir}/resources/META-INF">
+			<fileset dir="gen-wsdl">
+				<include name="*.wsdl"/>
+				<include name="*xsd"/>
+			</fileset>
+		</copy>
+	
+	</target>
+
+
+
+	<target name="Step2.generate.service" depends="generate.wsdl">
+
+		
+		<copy todir="${dest.dir.classes}">
+			<fileset dir="resources"/>
+		</copy>
+
+		<jar basedir="${dest.dir.classes}" destfile="${dest.dir}/${myName}.jar" />
+
+		<copy file="${dest.dir}/${myName}.jar" tofile="${repository.path}/${myName}.jar" />
+
+	</target>
+
+
+	<target name="compile.client" depends="prepare">
+
+			<javac srcdir="src" destdir="${dest.dir.classes}" includes="Client/*.java">
+				<classpath refid="build.class.path" />
+			</javac>
+
+		</target>
+	
+	<target name="Step3.run.client" depends="compile.client">
+		<echo message="Running the sample application..." />
+		<java classname="Client.TestClient" fork="true">
+			<classpath refid="build.class.path" />
+		</java>
+	</target>
+	
+	<target name="step1.run.Restclient" depends="compile.client">
+				<echo message="Running the sample application..." />
+				<java classname="Client.RestClient" fork="true">
+					<classpath refid="build.class.path" />
+				</java>
+			</target>
+
+
+
+
+
+</project>

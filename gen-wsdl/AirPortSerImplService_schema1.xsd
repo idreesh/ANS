@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://airportService.project.jaxws/" xmlns:tns="http://airportService.project.jaxws/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="getAirPortStatus" type="tns:getAirPortStatus"/>
+
+  <xs:element name="getAirPortStatusResponse" type="tns:getAirPortStatusResponse"/>
+
+  <xs:element name="getAllRequest" type="tns:getAllRequest"/>
+
+  <xs:element name="getAllRequestResponse" type="tns:getAllRequestResponse"/>
+
+  <xs:complexType name="getAirPortStatus">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAirPortStatusResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:AirportStatus" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AirportStatus">
+    <xs:sequence>
+      <xs:element name="Delay" type="xs:string" minOccurs="0"/>
+      <xs:element name="IATA" type="xs:string" minOccurs="0"/>
+      <xs:element name="State" type="xs:string" minOccurs="0"/>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+      <xs:element name="Weather" type="tns:Weather" minOccurs="0"/>
+      <xs:element name="ICAO" type="xs:string" minOccurs="0"/>
+      <xs:element name="City" type="xs:string" minOccurs="0"/>
+      <xs:element name="Status" type="tns:Status" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Weather">
+    <xs:sequence>
+      <xs:element name="Visibility" type="xs:string" minOccurs="0"/>
+      <xs:element name="Weather" type="xs:string" minOccurs="0"/>
+      <xs:element name="Meta" type="tns:Meta" minOccurs="0"/>
+      <xs:element name="Temp" type="xs:string" minOccurs="0"/>
+      <xs:element name="Wind" type="xs:string" minOccurs="0"/>
+      <xs:element name="Error" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Meta">
+    <xs:sequence>
+      <xs:element name="Credit" type="xs:string" minOccurs="0"/>
+      <xs:element name="Updated" type="xs:string" minOccurs="0"/>
+      <xs:element name="Url" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Status">
+    <xs:sequence>
+      <xs:element name="Reason" type="xs:string" minOccurs="0"/>
+      <xs:element name="ClosureBegin" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="EndTime" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="MindDelay" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="AvgDelay" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="MaxDelay" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="ClosureEnd" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Trend" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Type" type="xs:string" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAllRequest">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getAllRequestResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:AirportStatus" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

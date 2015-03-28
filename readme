@@ -1,0 +1,13 @@
+1) step1.run.RestClient
+ - run RestClient to test the external service
+ -see the response XML doc.
+ 
+ 2) step2.generate.service 
+  - generate the internal SOAP service
+   - generate WSDL, schemas, etc. 
+   
+ 3) step3.run.client
+ - run test client for the service
+ - the service has two methods : 
+    - getReport(AirPortCode) : retrieve the airport status for the given airport code. 
+    - getallRequest () : retrieve all the requests that has been made to the service. 

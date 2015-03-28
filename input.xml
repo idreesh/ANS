@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<AirportStatus>
+	<Delay>false</Delay>
+	<IATA>JFK</IATA>
+	<State>New York</State>
+	<Name>John F Kennedy International</Name>
+	<Weather>
+		<Visibility>10.00</Visibility>
+		<Weather>A Few Clouds</Weather>
+		<Meta>
+			<Credit>NOAA's National Weather Service</Credit>
+			<Updated>11:51 PM Local</Updated>
+			<Url>http://weather.gov/</Url>
+		</Meta>
+		<Temp>49.0 F (9.4 C)</Temp>
+		<Wind>North at 0.0mph</Wind>
+	</Weather>
+	<ICAO>KJFK</ICAO>
+	<City>New York</City>
+	<Status>
+		<Reason>No known delays for this airport.</Reason>
+		<ClosureBegin />
+		<EndTime />
+		<MinDelay />
+		<AvgDelay />
+		<MaxDelay />
+		<ClosureEnd />
+		<Trend />
+		<Type />
+	</Status>
+</AirportStatus>
